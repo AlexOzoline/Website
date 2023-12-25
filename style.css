@@ -49,3 +49,29 @@ footer {
     text-align: center;
     padding: 1em;
 }
+
+#interactive-section {
+    background-color: #e74c3c;
+    color: #fff;
+    text-align: center;
+    padding: 2em;
+}
+
+#interactive-container {
+    width: 300px; /* Set the width of the interactive container */
+    height: 300px; /* Set the height of the interactive container */
+    margin: 20px; /* Add some margin for spacing */
+    position: relative;
+    border: 1px solid #000; /* Add a border for visualization */
+    outline: none; /* Remove default focus outline */
+}
+
+#movable-square {
+    width: 50px; /* Set the width of the movable square */
+    height: 50px; /* Set the height of the movable square */
+    background-color: #f00; /* Set the background color */
+    position: absolute;
+    top: 50%; /* Center the square vertically */
+    left: 50%; /* Center the square horizontally */
+    transform: translate(-50%, -50%); /* Center the square precisely */
+}
