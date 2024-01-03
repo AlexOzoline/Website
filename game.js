@@ -144,7 +144,7 @@ function create() {
     pellets = this.physics.add.staticGroup();
 
     this.recalibrationInterval = 30;
-    //disdot = true;
+    disdot = true;
     for (let row = 0; row < maze.length; row++) {
         for (let col = 0; col < maze[row].length; col++) {
             const x = col * cellSize + offsetX + cellSize / 2; // Adjusted for center
@@ -282,7 +282,33 @@ function update() {
             pacman.x = 40
         }
     }
-    
+
+    if (dots.getLength() == 0) {
+        readPlayerInput = false;
+        if (pacman) {
+            pacman.destroy();
+        }
+        if (ghostGroup.getLength != 0) {
+            ghostGroup.children.iterate(function (ghost) {
+                ghost.destroy();
+            });
+        }
+        if (walls.getLength != 0) {
+            walls.children.iterate(function (wall) {
+                wall.destroy();
+            });
+        }
+        if (pellets.getLength != 0) {
+            pellets.children.iterate(function (pellet) {
+                pellet.destroy();
+            });
+        }
+        scoreText.visible = false;
+        winText = this.add.text(200, 350, 'YOU WIN!\n YOUR SCORE WAS ' + score, { fontSize: '24px', fill: '#fe0000', fontFamily: 'PressStart2P' });
+        if (pellets.getLength == 0 && walls.getLength != 0) {
+            this.scene.pause();
+        }
+    }
     
 
 
@@ -379,17 +405,6 @@ function checkBlocked(nextX , nextY) {
 eatDot = (pacman, dot) => {
     increaseScore(10);
     dot.destroy(); // Remove the dot from the scene
-    if (!dots.getLength() === 0) {
-        return;
-    }
-    ghostGroup.children.iterate(function (ghost) {
-        ghost.destroy();
-    });
-    walls.children.iterate(function (wall) {
-        wall.destroy();
-    });
-    scoreText.visible = false;
-    winText = this.add.text(400, 350, 'YOU WIN!\n YOUR SCORE WAS ' + score, { fontSize: '24px', fill: '#fe0000', fontFamily: 'PressStart2P' });
 };
 
 function moveTowardsTarget(currX, currY, tarX, tarY, ghost1) {
