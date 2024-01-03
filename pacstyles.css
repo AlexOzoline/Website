@@ -1,0 +1,9 @@
+.wall {
+    background-color: black;
+    border: 2px solid #001f3f; /* Replace with your dark neon blue color code */
+}
+
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('Assets/Fonts/PressStart2P-Regular.ttf') format('truetype');
+}

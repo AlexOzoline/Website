@@ -36,8 +36,9 @@ let lives = 3;
 let cursors;
 let firstPress = true;
 let walls;
-let sensor;
+let score = 0;
 let dots;
+let scoreText;
 let powerMode = false;
 let tarX;
 let readPlayerInput = true;
@@ -46,6 +47,8 @@ let fleeStatus;
 let ghostGroup;
 let startGameSound;
 let dieSound;
+let timeoutCall = null;
+let timeoutCall2 = null;
 let maze = [
     [2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
     [2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
@@ -104,6 +107,7 @@ function preload() {
     // Load assets (sprites, images, etc.)
     this.load.image('powerpellet', 'Assets/Sprites/powerPellet.png');
     this.load.image('dot', 'Assets/Sprites/dot.png');
+    this.load.image('meg', 'Assets/Sprites/meg.png');
     this.load.spritesheet('ghost1', 'Assets/Sprites/meg.png', {
         frameWidth: 32,
         frameHeight: 32
@@ -112,6 +116,7 @@ function preload() {
         frameWidth: 32,
         frameHeight: 32
     });
+    this.load.image('megrun', 'Assets/Sprites/megrun.png');
 
     this.load.audio('startSound', 'Assets/Sounds/StartSound.mp3');
     this.load.audio('dieSound', 'Assets/Sounds/dieSound.mp3');
@@ -120,27 +125,26 @@ function preload() {
 function create() {
     
     const cellSize = 16;
-    var wallColor = 0x0000FF;  // Black
+    var wallColor = 0x0000FF;  
     this.timer = 0;
-    this.recalibrationInterval = 2; // Adjust as needed
+    this.recalibrationInterval = 2; 
 
     livesGroup = this.add.group({
         key: 'pacman',
-        repeat: lives - 2, // Repeat to create the initial number of lives
+        repeat: lives - 2, 
         setXY: { x: 112, y: 16, stepX: -32 }
     });
 
     ghostGroup = this.physics.add.group();
-    
 
-    console.log(this.timerEvent);
+
 
     walls = this.physics.add.staticGroup();
     dots = this.physics.add.staticGroup();
     pellets = this.physics.add.staticGroup();
 
     this.recalibrationInterval = 30;
-
+    //disdot = true;
     for (let row = 0; row < maze.length; row++) {
         for (let col = 0; col < maze[row].length; col++) {
             const x = col * cellSize + offsetX + cellSize / 2; // Adjusted for center
@@ -155,6 +159,7 @@ function create() {
             else if (maze[row][col] === 0) {
                 const dot = this.add.image(x, y, 'dot');
                 dots.add(dot);
+                disdot = false;
             }
             else if (maze[row][col] === 6) {
                 const pellet = this.add.image(x, y, 'powerpellet');
@@ -178,22 +183,31 @@ function create() {
     });
     ghostGroup.children.iterate(function (ghost) {
         ghost.setData('direction', 'down');
+        ghost.setData('givePoints', 'true');
     });
     this.physics.add.collider(ghostGroup, walls);
 
     startGameSound = this.sound.add('startSound');
     dieSound = this.sound.add('dieSound');
+    
+    var style = { fontSize: '24px', fill: '#fff', fontFamily: 'PressStart2P' };
+    scoreText = this.add.text(280, 10.5, 'SCORE 0', style);
+    scoreText.visible = false;
+    startText = this.add.text(230 , 10, 'PRESS ANY KEY TO START (Arrow keys to move)');
+    gameOverText = this.add.text(40, 10, 'GAME OVER REFRESH TO TRY AGAIN', { fontSize: '24px', fill: '#fe0000', fontFamily: 'PressStart2P' });
+    gameOverText.visible = false;
 
     cursors = this.input.keyboard.createCursorKeys();
     this.physics.add.collider(pacman, walls);
     this.physics.add.overlap(pacman, dots, eatDot, null, this);
-    this.physics.add.overlap(pacman, ghostGroup, pacmanDie, null, this);
+    this.physics.add.overlap(pacman, ghostGroup, handleCollision, null, this);
     this.physics.add.overlap(pacman, pellets, powerUp, null, this);
     dieSound = this.sound.add('dieSound');
     this.physics.pause();
     this.input.keyboard.on('keydown', function (event) {
         // Check if any key is pressed
         if (firstPress) {
+            startText.visible = false;
             startGameSound.play();
             firstPress = false;
             // Add a delayed call to unpause physics after the sound completes
@@ -280,7 +294,7 @@ function update() {
         else if(ghost1.x > 760) {
             ghost1.x = 40
         }
-        if (!canMoveInDirection(currghost.getData('direction'), currghost) || Math.random() < 0.03) {
+        if (!canMoveInDirection(currghost.getData('direction'), currghost) || Math.random() < 0.02) {
             direction = getRandomDirection(currghost, currghost.getData('direction'));
             switch (direction) {
                 case 'up': // Move up
@@ -362,9 +376,21 @@ function checkBlocked(nextX , nextY) {
     }
 }
 
-function eatDot(pacman, dot) {
+eatDot = (pacman, dot) => {
+    increaseScore(10);
     dot.destroy(); // Remove the dot from the scene
-}
+    if (!dots.getLength() === 0) {
+        return;
+    }
+    ghostGroup.children.iterate(function (ghost) {
+        ghost.destroy();
+    });
+    walls.children.iterate(function (wall) {
+        wall.destroy();
+    });
+    scoreText.visible = false;
+    winText = this.add.text(400, 350, 'YOU WIN!\n YOUR SCORE WAS ' + score, { fontSize: '24px', fill: '#fe0000', fontFamily: 'PressStart2P' });
+};
 
 function moveTowardsTarget(currX, currY, tarX, tarY, ghost1) {
     var left = Number.MAX_SAFE_INTEGER;
@@ -447,44 +473,104 @@ function getRandomDirection(ghost, direction) {
     }
 }
 
-function pacmanDie(pacman, ghost1) {
-    
-    pacman.setVelocity(0);
-    readPlayerInput = false;
-    pacman.anims.play('die', true);
-    this.physics.pause();
-    dieSound.play();
-    setTimeout(function() {
-        pacman.x = 432
-        pacman.y = 544
-        pacman.anims.play('left');
-        readPlayerInput = true;
-        ghostGroup.children.iterate(function (ghost) {
-            ghost.x = 200;
-            ghost.y = 272;
-        });
-        startGameSound.play();
+function handleCollision(pacman, ghost) {
+    if (ghost.getData('givePoints') == 'false') {
+        return;
+    }
+    if (!powerMode) {
+        pacman.setVelocity(0);
+        readPlayerInput = false;
+        pacman.anims.play('die', true);
+        this.physics.pause();
+        dieSound.play();
         var pacmanLife = livesGroup.getFirstAlive();
         if (pacmanLife) {
-            pacmanLife.destroy();
+            setTimeout(function() {
+                pacman.x = 432
+                pacman.y = 544
+                pacman.anims.play('left');
+                readPlayerInput = true;
+                ghostGroup.children.iterate(function (ghost) {
+                    ghost.x = 200;
+                    ghost.y = 272;
+                });
+                startGameSound.play();
+                if (pacmanLife) {
+                    pacmanLife.destroy();
+                }
+                setTimeout(function() {
+                    this.physics.resume();
+                }.bind(this), 4510); 
+            }.bind(this), 3000);
         }
-        setTimeout(function() {
-            // Use bind to set the correct context
-            this.physics.resume();
-        }.bind(this), 4510); 
-    }.bind(this), 3000);
-    
+        else {
+            scoreText.visible = false;
+            gameOverText.visible = true;
+        }
+    }
+    else {
+        increaseScore(200);
+        ghost.setData('givePoints', 'false');
+        ghost.setActive(false).setVisible(false);
+        pointText = this.add.text(ghost.x, ghost.y, '200');
+        setTimeout(removeText,1000, pointText);
+        setTimeout(reviveGhost, 4200, ghost);
+    }
 }
 
 
 function powerUp(pacman, pellet) {
+    increaseScore(50);
     pellet.destroy();
+
+    // Clear existing timeouts
+    clearTimeout(timeoutCall);
+    clearTimeout(timeoutCall2);
+
     powerMode = true;
+    changeGhostTexture('flee');
+
+    // Set a new timeout for changing the ghost texture back to normal
+    timeoutCall = setTimeout(changeGhostTexture, 6500, 'normal');
+
+    // Set a new timeout for turning off the power mode
+    timeoutCall2 = setTimeout(function() {
+        powerMode = false;
+        console.log('power mode off');
+    }, 6500);
 }
 
+function changeGhostTexture(which) {
+    console.log(which)
+    if (which == 'normal') {
+        ghostGroup.children.iterate(function (ghost) {
+            ghost.setTexture('meg');
+        }); 
+    }
+    else if(which == 'flee') {
+        ghostGroup.children.iterate(function (ghost) {
+            ghost.setTexture('megrun');
+        });
+    }
+}
 
+function increaseScore(points) {
+    if (scoreText.visible == false) {
+        scoreText.visible = true;
+    }
+    score += points;
+    // Update the displayed score
+    scoreText.setText('SCORE ' + score);
+}
 
-function goresume() {
-    console.log('CALLED')
-    this.physics.resume('gamesc');
+function reviveGhost(ghost) {
+    console.log('making ghost')
+    ghost.x = 200;
+    ghost.y = 272;
+    ghost.setData('givePoints', 'true');
+    ghost.setActive(true).setVisible(true);
+}
+
+function removeText (text) {
+    text.destroy();
 }
