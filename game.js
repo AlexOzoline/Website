@@ -203,6 +203,8 @@ function create() {
     this.physics.add.overlap(pacman, ghostGroup, handleCollision, null, this);
     this.physics.add.overlap(pacman, pellets, powerUp, null, this);
     dieSound = this.sound.add('dieSound');
+    dieSound.setVolume(0.3);
+    startGameSound.setVolume(0.05);
     this.physics.pause();
     this.input.keyboard.on('keydown', function (event) {
         // Check if any key is pressed
