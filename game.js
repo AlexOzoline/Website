@@ -32,7 +32,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 let pacman;
-let lives = 0;
+let lives = 3;
 let cursors;
 let firstPress = true;
 let walls;
@@ -129,7 +129,7 @@ function preload() {
     this.load.image('ghostBlue', 'Assets/Sprites/ghostBlue.png');
     this.load.audio('startSound', 'Assets/Sounds/StartSound.mp3');
     this.load.audio('dieSound', 'Assets/Sounds/dieSound.mp3');
-    this.load.audio('eatDot','Assets/Sounds/eatDot.mp3');
+    this.load.audio('eatDot','Assets/Sounds/eatdot.mp3');
     this.load.audio('eatGhost','Assets/Sounds/eatGhost.mp3');
     this.load.audio('powerUp', 'Assets/Sounds/powerUp.mp3');
 }
@@ -226,7 +226,7 @@ function create() {
     dieSound = this.sound.add('dieSound');
     dieSound.setVolume(0.3);
     startGameSound.setVolume(0.05);
-    eatDotSound.setVolume(0.02);
+    eatDotSound.setVolume(0.01);
     eatGhostSound.setVolume(0.2);
     powerUpSound.setVolume(0.1);
     this.physics.pause();
