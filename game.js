@@ -32,12 +32,13 @@ const config = {
 const game = new Phaser.Game(config);
 
 let pacman;
-let lives = 3;
+let lives = 0;
 let cursors;
 let firstPress = true;
 let walls;
 let score = 0;
 let dots;
+let gameWon = false;
 let scoreText;
 let powerMode = false;
 let tarX;
@@ -64,9 +65,9 @@ let maze = [
     [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 5, 1, 1, 5, 2, 0, 2, 1],
     [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 5, 5, 2, 0, 2, 1],
     [2, 2, 1, 2, 0, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 5, 5, 2, 0, 2, 1],
-    [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 5, 5, 2, 0, 2, 1],
-    [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 5, 2, 0, 2, 1],
-    [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 0, 2, 1],
+    [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 7, 2, 2, 2, 2, 2, 1, 1, 1, 5, 5, 2, 0, 2, 1],
+    [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 7, 2, 2, 2, 2, 1, 1, 2, 1, 1, 5, 2, 0, 2, 1],
+    [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 7, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 0, 2, 1],
     [2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 0, 2, 1],
     [1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 1, 1, 1],
     [3, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 2, 4],
@@ -108,6 +109,10 @@ function preload() {
     this.load.image('powerpellet', 'Assets/Sprites/powerPellet.png');
     this.load.image('dot', 'Assets/Sprites/dot.png');
     this.load.image('meg', 'Assets/Sprites/meg.png');
+    this.load.spritesheet('ghost', 'Assets/Sprites/ghost_spritesheet.png', {
+        frameWidth: 32,
+        frameHeight: 32,
+    });
     this.load.spritesheet('ghost1', 'Assets/Sprites/meg.png', {
         frameWidth: 32,
         frameHeight: 32
@@ -116,10 +121,17 @@ function preload() {
         frameWidth: 32,
         frameHeight: 32
     });
+    this.load.spritesheet('blueGhost', 'Assets/Sprites/blueGhost_spritesheet.png', {
+        frameWidth: 32,
+        frameHeight: 32
+    });
     this.load.image('megrun', 'Assets/Sprites/megrun.png');
-
+    this.load.image('ghostBlue', 'Assets/Sprites/ghostBlue.png');
     this.load.audio('startSound', 'Assets/Sounds/StartSound.mp3');
     this.load.audio('dieSound', 'Assets/Sounds/dieSound.mp3');
+    this.load.audio('eatDot','Assets/Sounds/eatDot.mp3');
+    this.load.audio('eatGhost','Assets/Sounds/eatGhost.mp3');
+    this.load.audio('powerUp', 'Assets/Sounds/powerUp.mp3');
 }
 
 function create() {
@@ -144,26 +156,29 @@ function create() {
     pellets = this.physics.add.staticGroup();
 
     this.recalibrationInterval = 30;
-    disdot = true;
+    //disdot = true;
     for (let row = 0; row < maze.length; row++) {
         for (let col = 0; col < maze[row].length; col++) {
             const x = col * cellSize + offsetX + cellSize / 2; // Adjusted for center
             const y = row * cellSize + offsetY + cellSize / 2; // Adjusted for center
-
-            if (maze[row][col] === 1) {
+            num = maze[row][col];
+            if (num === 1) {
                 const wall = this.add.rectangle(x, y, cellSize, cellSize, wallColor);
                 this.add.rectangle(x, y, cellSize -2 , cellSize -2, 0x000000);
                 this.physics.add.existing(wall, true);
                 walls.add(wall);
             }
-            else if (maze[row][col] === 0) {
+            else if (num === 0) {
                 const dot = this.add.image(x, y, 'dot');
                 dots.add(dot);
                 disdot = false;
             }
-            else if (maze[row][col] === 6) {
+            else if (num === 6) {
                 const pellet = this.add.image(x, y, 'powerpellet');
                 pellets.add(pellet);
+            }
+            else if (num == 7) {
+                this.add.rectangle(x, y, 6, cellSize, 0xfefefe);
             }
             else {
                 continue;
@@ -177,25 +192,31 @@ function create() {
     pacman.setOrigin(0.5, 0.5);
     
     ghostGroup = this.physics.add.group({
-        key: 'ghost1',
+        key: 'ghost',
         repeat: 3,  
-        setXY: { x: 200, y: 272,}  
+        setXY: { x: 470, y: 275}  
     });
     ghostGroup.children.iterate(function (ghost) {
         ghost.setData('direction', 'down');
         ghost.setData('givePoints', 'true');
+        ghost.setOrigin(0.5, 0.5);
     });
     this.physics.add.collider(ghostGroup, walls);
 
     startGameSound = this.sound.add('startSound');
     dieSound = this.sound.add('dieSound');
+    eatDotSound = this.sound.add('eatDot');
+    eatGhostSound = this.sound.add('eatGhost');
+    powerUpSound = this.sound.add('powerUp', { loop: true });
     
-    var style = { fontSize: '24px', fill: '#fff', fontFamily: 'PressStart2P' };
-    scoreText = this.add.text(280, 10.5, 'SCORE 0', style);
+    var style = { fontSize: '22px', fill: '#fff', fontFamily: 'PressStart2P' };
+    scoreText = this.add.text(280, 12, 'SCORE 0', style);
     scoreText.visible = false;
-    startText = this.add.text(230 , 10, 'PRESS ANY KEY TO START (Arrow keys to move)');
+    startText = this.add.text(170 , 10, 'PRESS ANY KEY TO START (Arrow keys to change direction)');
     gameOverText = this.add.text(40, 10, 'GAME OVER REFRESH TO TRY AGAIN', { fontSize: '24px', fill: '#fe0000', fontFamily: 'PressStart2P' });
     gameOverText.visible = false;
+    winText = this.add.text(85, 345, 'YOU WIN! YOUR SCORE WAS ' + score, { fontSize: '24px', fill: '#fe0000', fontFamily: 'PressStart2P' });
+    winText.visible = false;
 
     cursors = this.input.keyboard.createCursorKeys();
     this.physics.add.collider(pacman, walls);
@@ -205,6 +226,9 @@ function create() {
     dieSound = this.sound.add('dieSound');
     dieSound.setVolume(0.3);
     startGameSound.setVolume(0.05);
+    eatDotSound.setVolume(0.02);
+    eatGhostSound.setVolume(0.2);
+    powerUpSound.setVolume(0.1);
     this.physics.pause();
     this.input.keyboard.on('keydown', function (event) {
         // Check if any key is pressed
@@ -248,6 +272,41 @@ function create() {
     });
 
     this.anims.create({
+        key: 'rightGhost',
+        frames: this.anims.generateFrameNumbers('ghost', { start: 0, end: 1 }),
+        frameRate: 20,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'upGhost',
+        frames: this.anims.generateFrameNumbers('ghost', { start: 6, end: 7 }),
+        frameRate: 1,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'leftGhost',
+        frames: this.anims.generateFrameNumbers('ghost', { start: 2, end: 3 }),
+        frameRate: 1,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'downGhost',
+        frames: this.anims.generateFrameNumbers('ghost', { start: 4, end: 5 }),
+        frameRate: 1,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'blueGhost',
+        frames: this.anims.generateFrameNumbers('blueGhost', { start: 0, end: 1 }),
+        frameRate: 1,
+        repeat: -1
+    });
+
+    this.anims.create({
         key: 'die',
         frames: this.anims.generateFrameNumbers('pacman', { start: 12, end: 19}),
         frameRate: 5,
@@ -257,6 +316,9 @@ function create() {
 
 
 function update() {
+    if (gameWon) {
+        return;
+    }
     const speed = 120
     // game logic (movement, collisions, etc.)
     if (readPlayerInput == true) {
@@ -285,66 +347,54 @@ function update() {
         }
     }
 
-    if (dots.getLength() == 0) {
-        readPlayerInput = false;
-        if (pacman) {
-            pacman.destroy();
-        }
-        if (ghostGroup.getLength != 0) {
-            ghostGroup.children.iterate(function (ghost) {
-                ghost.destroy();
-            });
-        }
-        if (walls.getLength != 0) {
-            walls.children.iterate(function (wall) {
-                wall.destroy();
-            });
-        }
-        if (pellets.getLength != 0) {
-            pellets.children.iterate(function (pellet) {
-                pellet.destroy();
-            });
-        }
-        scoreText.visible = false;
-        winText = this.add.text(200, 350, 'YOU WIN!\n YOUR SCORE WAS ' + score, { fontSize: '24px', fill: '#fe0000', fontFamily: 'PressStart2P' });
-        if (pellets.getLength == 0 && walls.getLength != 0) {
-            this.scene.pause();
-        }
-    }
     
 
 
-    ghostGroup.children.iterate(function (ghost1) {
-        var currghost = ghost1;
-        if (ghost1.x < 40) {
-            ghost1.x = 750
+    ghostGroup.children.iterate(function (ghost) {
+        var currghost = ghost;
+        var ghostSpeed = 130;
+        if (currghost.x < 40) {
+            currghost.x = 750
         }
-        else if(ghost1.x > 760) {
-            ghost1.x = 40
+        else if(currghost.x > 760) {
+            currghost.x = 40
+        }
+        if (powerMode) {
+            currghost.anims.play('blueGhost', true);
+            ghostSpeed = 80;
         }
         if (!canMoveInDirection(currghost.getData('direction'), currghost) || Math.random() < 0.02) {
             direction = getRandomDirection(currghost, currghost.getData('direction'));
             switch (direction) {
                 case 'up': // Move up
-                    currghost.setVelocity(0, -140);
+                    currghost.setVelocity(0, -ghostSpeed);
                     currghost.setData('direction', 'up');
+                    if (!powerMode) {
+                        currghost.anims.play('upGhost', true);
+                    }
                     break;
                 case 'down': // Move down
-                    currghost.setVelocity(0, 140);
+                    currghost.setVelocity(0, ghostSpeed);
                     currghost.setData('direction', 'down');
+                    if (!powerMode) {
+                        currghost.anims.play('downGhost', true);
+                    }
                     break;
                 case 'left': // Move left
-                    currghost.setVelocity(-140, 0);
+                    currghost.setVelocity(-ghostSpeed, 0);
                     currghost.setData('direction', 'left');
+                    if (!powerMode) {
+                        currghost.anims.play('leftGhost', true);
+                    }
                     break;
                 case 'right': // Move right
-                    currghost.setVelocity(140, 0);
+                    currghost.setVelocity(ghostSpeed, 0);
                     currghost.setData('direction', 'right');
+                    if (!powerMode) {
+                        currghost.anims.play('rightGhost', true);
+                    }
                     break;
             }
-        }
-        else { 
-            
         }
     });
     
@@ -406,7 +456,13 @@ function checkBlocked(nextX , nextY) {
 
 eatDot = (pacman, dot) => {
     increaseScore(10);
+    if (!eatDotSound.isPlaying) {
+    eatDotSound.play();
+    }
     dot.destroy(); // Remove the dot from the scene
+    if (dots.getLength() == 0) {
+        winGame();
+    }
 };
 
 function moveTowardsTarget(currX, currY, tarX, tarY, ghost1) {
@@ -526,6 +582,7 @@ function handleCollision(pacman, ghost) {
         }
     }
     else {
+        eatGhostSound.play();
         increaseScore(200);
         ghost.setData('givePoints', 'false');
         ghost.setActive(false).setVisible(false);
@@ -539,7 +596,9 @@ function handleCollision(pacman, ghost) {
 function powerUp(pacman, pellet) {
     increaseScore(50);
     pellet.destroy();
-
+    if(!powerUpSound.isPlaying) {
+        powerUpSound.play();
+    }
     // Clear existing timeouts
     clearTimeout(timeoutCall);
     clearTimeout(timeoutCall2);
@@ -554,6 +613,7 @@ function powerUp(pacman, pellet) {
     timeoutCall2 = setTimeout(function() {
         powerMode = false;
         console.log('power mode off');
+        powerUpSound.stop();
     }, 6500);
 }
 
@@ -561,12 +621,12 @@ function changeGhostTexture(which) {
     console.log(which)
     if (which == 'normal') {
         ghostGroup.children.iterate(function (ghost) {
-            ghost.setTexture('meg');
+            ghost.setTexture('ghost');
         }); 
     }
     else if(which == 'flee') {
         ghostGroup.children.iterate(function (ghost) {
-            ghost.setTexture('megrun');
+            ghost.setTexture('ghostBlue');
         });
     }
 }
@@ -582,12 +642,29 @@ function increaseScore(points) {
 
 function reviveGhost(ghost) {
     console.log('making ghost')
-    ghost.x = 200;
-    ghost.y = 272;
+    ghost.x = 470;
+    ghost.y = 278;
     ghost.setData('givePoints', 'true');
     ghost.setActive(true).setVisible(true);
 }
 
 function removeText (text) {
     text.destroy();
+}
+
+winGame = () =>  {
+    readPlayerInput = false;
+    winText.setText('YOU WIN! YOUR SCORE WAS ' + score);
+    winText.visible = true;
+    if (pacman) {
+        pacman.destroy();
+    }
+    
+    while(ghostGroup.getLength() !== 0) {
+        curr = ghostGroup.getFirstAlive()
+        curr.destroy();
+    }
+    scoreText.visible = false;
+    this.scene.pause();
+    gameWon = true;
 }
