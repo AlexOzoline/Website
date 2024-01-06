@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexander Ozoline - Personal Website</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <script>
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href.replace('.html', ''));
@@ -15,44 +18,64 @@
 
 <body>
     <header>
+        <p>Hey, I'm</p>
         <h1>Alexander Ozoline</h1>
-        <p>Software Developer</p>
     </header>
 
     <nav>
         <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="index.html">About Me</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="snippets.html">Code Snippets</a></li>
         </ul>
     </nav>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Hi, I'm Alex Ozoline. I'm A software developer based in Melbourne, Australia.</p>
-        <p>I've worked on many front and back end projects and want use my experience towards something new and exciting.</p>
-        <p>I'm passionate about cutting edge technology, innovative programming solutions, and intuitive user experiences.</p>
-    </section>
+    <div class="flex-container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I'm a passionate and versatile programmer with a focus on software development, data analysis, and web design.</p>
+            <p> I thrive on turning complex problems into elegant and efficient solutions, and I'm constantly exploring new technologies to enhance my skill set.</p>
+            <h2>Professional Background</h2>
+            <p>I completed a Bachelor of Science at the University of Melbourne, Majoring in Computing and Software Systems.</p>
+            <p>University taught me the intricacies of back-end design, whether that be database management, or algorithmic use cases. </p>
+            <p> I believe in writing clean and maintainable code, and I'm always eager to learn and adapt to new technologies and methodologies.. </p>
+            <h2>My Tech Stack</h2>
+            <p>Front-end: Javascript, HTML, CSS, React.js.</p>
+            <p>Back-end: Python (Django, Pandas, Numpy, pytest), Java, C#, SQL, MySQL, Haskell.</p>
+            <p>Project Management & Collaboration: Git, Github, Jira, Confluence, Microsoft teams, Zoom, Discord.
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project">
-            <h3>Project 1</h3>
-            <p>PACMAN GAME.</p>
-            <p>Click the link below to play Pacman:</p>
-            <a href="pacman.html">Play Pacman Game</a>
-        </div>
-        <div class="project">
-            <h3>Project 2</h3>
-            <p>TO DO.</p>
-        </div>
-    </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Feel free to reach out to me!</p>
-        <a href="mailto:alexoz1708@outlook.com">alexoz1708@outlook.com</a>
-    </section>
+        </section>
+
+        <section id="contact" class = "right-section">
+            <h2>Contact</h2>
+            <p>You can contact me through the following:</p>
+            <a href="mailto:alexoz1708@outlook.com">
+                <img src="Assets/Images/email.png" alt="Email Icon" width="25" height="25">
+                alexoz1708@outlook.com
+            </a>
+            <p>
+                <img src="Assets/Images/phone.png" alt="Phone Icon" width="25" height="25">
+                +61 0493208516
+            </p>
+            <p>Connect with me on LinkedIn:</p>
+            <a href="https://www.linkedin.com/in/alexander-ozoline-27b093260/" target="_blank">
+                <img src="Assets/Images/linkedin.png" alt="LinkedIn Logo" width="25" height="25">
+                LinkedIn Profile
+            </a>
+
+            <p>Check out my GitHub repositories:</p>
+            <a href="https://github.com/AlexOzoline?tab=repositories" target="_blank">
+                <img src="Assets/Images/GitHub.png" alt="GitHub Logo" width="25" height="25">
+                GitHub Profile
+            </a>
+            <p>Download my CV: </p>
+            <a href="Alex_Ozoline_CV.pdf" download="Alex_Ozoline_CV.pdf" target="_blank">
+                <img src="Assets/Images/resume.png" alt="resume" width="25" height="25">
+                Download link
+            </a>
+        </section>
+    </div>
 
     <footer>
         <p>&copy; 2023 Alexander Ozoline</p>
