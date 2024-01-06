@@ -718,5 +718,5 @@ winGame = () =>  {
 }
 
 function goToProjects() {
-    window.location.href = 'projects.html';
+    window.location.href = './projects';
 }
