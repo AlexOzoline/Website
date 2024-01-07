@@ -204,6 +204,7 @@ function create() {
         ghost.setData('direction', 'down');
         ghost.setData('givePoints', 'true');
         ghost.setOrigin(0.5, 0.5);
+        ghost.setData('edible', 'false');
     });
 
 
@@ -379,6 +380,7 @@ function update() {
             if (powerMode) {
                 currghost.anims.play('blueGhost', true);
                 ghostSpeed = 80;
+                currghost.setData('edible', 'true');
             }
 
             if ((ghost.body.velocity.x === 0 && ghost.body.velocity.y === 0) || (!canMoveInDirection(currghost.getData('direction'), currghost) || Math.random() < 0.025)) {
@@ -413,6 +415,7 @@ function update() {
                         }
                         break;
                 }
+                currghost.setData('edible', 'false');
             }
         });
     } else {
@@ -587,7 +590,7 @@ function handleCollision(pacman, ghost) {
         return;
     }
 
-    if (!powerMode) {
+    if (!powerMode && ghost.getData('edible') === 'false') {
         pacman.setVelocity(0);
         readPlayerInput = false;
         pacman.anims.play('die', true);
