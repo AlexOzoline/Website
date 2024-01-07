@@ -66,6 +66,7 @@ nav ul {
 
 nav li {
     float: left;
+    margin-right:2vh;
 }
 
 nav a {
@@ -142,4 +143,8 @@ a.contact-info img, div.contact-info img {
 
 .wordpdf {
     width:100%;
+}
+
+.snippet {
+    width:50%;
 }
