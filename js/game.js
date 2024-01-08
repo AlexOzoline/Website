@@ -179,7 +179,7 @@ function create() {
             } else if (num === 0 && disdot) {
                 const dot = this.add.image(x, y, 'dot');
                 dots.add(dot);
-                disdot = false;
+                //disdot = false; //disdot is used for debugging
             } else if (num === 6) {
                 const pellet = this.add.image(x, y, 'powerpellet');
                 pellets.add(pellet);
