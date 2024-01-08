@@ -32,7 +32,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 let pacman;
-let lives = 3;
+let lives = 0;
 let cursors;
 let firstPress = true;
 let walls;
@@ -101,32 +101,32 @@ function createWall(x, y, width, height, color) {
 
 function preload() {
     // Load assets (sprites, images, etc.)
-    this.load.image('powerpellet', 'Assets/Sprites/powerPellet.png');
-    this.load.image('dot', 'Assets/Sprites/dot.png');
-    this.load.image('meg', 'Assets/Sprites/meg.png');
-    this.load.spritesheet('ghost', 'Assets/Sprites/ghost_spritesheet.png', {
+    this.load.image('powerpellet', '../Assets/Sprites/powerPellet.png');
+    this.load.image('dot', '../Assets/Sprites/dot.png');
+    this.load.image('meg', '../Assets/Sprites/meg.png');
+    this.load.spritesheet('ghost', '../Assets/Sprites/ghost_spritesheet.png', {
         frameWidth: 32,
         frameHeight: 32,
     });
-    this.load.spritesheet('ghost1', 'Assets/Sprites/meg.png', {
+    this.load.spritesheet('ghost1', '../Assets/Sprites/meg.png', {
         frameWidth: 32,
         frameHeight: 32
     });
-    this.load.spritesheet('pacman', 'Assets/Sprites/pacman_spritesheet.png', {
+    this.load.spritesheet('pacman', '../Assets/Sprites/pacman_spritesheet.png', {
         frameWidth: 32,
         frameHeight: 32
     });
-    this.load.spritesheet('blueGhost', 'Assets/Sprites/blueGhost_spritesheet.png', {
+    this.load.spritesheet('blueGhost', '../Assets/Sprites/blueGhost_spritesheet.png', {
         frameWidth: 32,
         frameHeight: 32
     });
-    this.load.image('megrun', 'Assets/Sprites/megrun.png');
-    this.load.image('ghostBlue', 'Assets/Sprites/ghostBlue.png');
-    this.load.audio('startSound', 'Assets/Sounds/StartSound.mp3');
-    this.load.audio('dieSound', 'Assets/Sounds/dieSound.mp3');
-    this.load.audio('eatDot','Assets/Sounds/eatdot.mp3');
-    this.load.audio('eatGhost','Assets/Sounds/eatGhost.mp3');
-    this.load.audio('powerUp', 'Assets/Sounds/powerUp.mp3');
+    this.load.image('megrun', '../Assets/Sprites/megrun.png');
+    this.load.image('ghostBlue', '../Assets/Sprites/ghostBlue.png');
+    this.load.audio('startSound', '../Assets/Sounds/StartSound.mp3');
+    this.load.audio('dieSound', '../Assets/Sounds/dieSound.mp3');
+    this.load.audio('eatDot','../Assets/Sounds/eatdot.mp3');
+    this.load.audio('eatGhost','../Assets/Sounds/eatGhost.mp3');
+    this.load.audio('powerUp', '../Assets/Sounds/powerUp.mp3');
 }
 
 function create() {
@@ -179,7 +179,7 @@ function create() {
             } else if (num === 0 && disdot) {
                 const dot = this.add.image(x, y, 'dot');
                 dots.add(dot);
-                //disdot = false;
+                disdot = false;
             } else if (num === 6) {
                 const pellet = this.add.image(x, y, 'powerpellet');
                 pellets.add(pellet);
@@ -218,16 +218,16 @@ function create() {
     scoreText.visible = false;
 
     startText = this.add.text(170, 10, 'PRESS ANY KEY TO START (Arrow keys to change direction)');
-    gameOverText = this.add.text(160, 0, 'GAME OVER REFRESH TO TRY AGAIN', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
+    gameOverText = this.add.text(160, 0, 'GAME OVER - REFRESH TO TRY AGAIN', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
     gameOverText.visible = false;
 
     winText = this.add.text(150, 330, 'YOU WIN! YOUR SCORE WAS ' + score, { fontSize: '40px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
     winText.visible = false;
 
-    niceMessage = this.add.text(260, 410, 'THANKS FOR PLAYING', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC'});
+    niceMessage = this.add.text(260, 410, 'THANKS', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC'});
     niceMessage.visible = false;
 
-    niceMessage2 = this.add.text(120, 540, 'THIS PAGE WILL REDIRECT BACK SHORTLY', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
+    niceMessage2 = this.add.text(158, 541, 'REDIRECT', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
     niceMessage2.visible = false;
 
     cursors = this.input.keyboard.createCursorKeys();
@@ -707,7 +707,9 @@ winGame = () =>  {
 
     winText.setText('YOU WIN! YOUR SCORE WAS ' + score);
     winText.visible = true;
+    niceMessage.setText('THANKS FOR PLAYING');
     niceMessage.visible = true;
+    niceMessage2.setText('THIS PAGE WILL REDIRECT SHORTLY');
     niceMessage2.visible = true;
 
     if (pacman) {
@@ -721,5 +723,5 @@ winGame = () =>  {
 }
 
 function goToProjects() {
-    window.location.href = './projects';
+    window.location.href = '../html/projects';
 }

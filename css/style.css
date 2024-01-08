@@ -1,20 +1,20 @@
 @font-face {
     font-family: 'Brandon';
-    src: url('Assets/Fonts/HvDTrial_Brandon_Grotesque_regular-BF64a625c9311e1.otf') format('truetype');
+    src: url('../Assets/Fonts/HvDTrial_Brandon_Grotesque_regular-BF64a625c9311e1.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Brandon';
-    src: url('Assets/Fonts/HvDTrial_Brandon_Grotesque_bold-BF64a625c9151d5.otf') format('truetype');
+    src: url('../Assets/Fonts/HvDTrial_Brandon_Grotesque_bold-BF64a625c9151d5.otf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Roboto';
-    src: url('Assets/Fonts/Roboto-Bold.ttf') format('truetype');
+    src: url('../Assets/Fonts/Roboto-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }

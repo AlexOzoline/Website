@@ -1,0 +1,9 @@
+.wall {
+    background-color: black;
+    border: 2px solid #001f3f; 
+}
+
+@font-face {
+    font-family: 'ARCADECLASSIC';
+    src: url('../Assets/Fonts/ARCADECLASSIC.TTF') format('truetype');
+}

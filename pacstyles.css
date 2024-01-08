@@ -1,9 +1,0 @@
-.wall {
-    background-color: black;
-    border: 2px solid #001f3f; /* Replace with your dark neon blue color code */
-}
-
-@font-face {
-    font-family: 'ARCADECLASSIC';
-    src: url('Assets/Fonts/ARCADECLASSIC.TTF') format('truetype');
-}
