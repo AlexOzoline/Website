@@ -32,7 +32,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 let pacman;
-let lives = 0;
+let lives = 3;
 let cursors;
 let firstPress = true;
 let walls;
@@ -218,7 +218,7 @@ function create() {
     scoreText.visible = false;
 
     startText = this.add.text(170, 10, 'PRESS ANY KEY TO START (Arrow keys to change direction)');
-    gameOverText = this.add.text(160, 0, 'GAME OVER - REFRESH TO TRY AGAIN', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
+    gameOverText = this.add.text(160, 0, 'GAME OVER', { fontSize: '32px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
     gameOverText.visible = false;
 
     winText = this.add.text(150, 330, 'YOU WIN! YOUR SCORE WAS ' + score, { fontSize: '40px', fill: '#fe0000', fontFamily: 'ARCADECLASSIC' });
@@ -623,6 +623,7 @@ function handleCollision(pacman, ghost) {
             }.bind(this), 3000);
         } else {
             scoreText.visible = false;
+            gameOverText.setText('GAME  OVER - REFRESH   TO   TRY   AGAIN');
             gameOverText.visible = true;
         }
     } else {
