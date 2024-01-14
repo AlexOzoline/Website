@@ -44,6 +44,9 @@ body {
     min-height: 100vh; /* Ensure the body takes at least the full viewport height */
     font-size: 1.1em;
     background-color: #f4f3f6;
+    opacity: 0;
+    transition: opacity 1.1s ease-in-out;
+    transform: translateY(-100px);
 }
 
 header {
