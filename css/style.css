@@ -80,6 +80,10 @@ nav a {
     text-decoration: none;
 }
 
+nav a:hover {
+    color:#3498db;
+}
+
 section {
     padding: 2em;
     flex: 1; /* Make the sections flexible to occupy remaining space */
