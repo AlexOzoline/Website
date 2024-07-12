@@ -25,19 +25,22 @@
             }, 100); 
         });
     </script>
-    <header>
-        <p>Hey, I'm</p>
-        <h1>Alexander Ozoline</h1>
-    </header>
-
     <nav>
         <ul>
-            <li><a href="./">About Me</a></li>
-            <li><a href="./html/projects">Projects</a></li>
-            <li><a href="./html/samples">Code Samples</a></li>
+            <li class = "left-item">AO</li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#samples">Code Samples</a></li>
         </ul>
     </nav>
-
+    <section id="home">
+        <header>
+            <h1>Alexander Ozoline</h1>
+            <h2>Software Engineer</h2>
+            <h3>Hi, I'm Alex. Current DevOps Engineer with a passion for Software Development based in Melbourne Australia.</h3>
+        </header>
+    </section>
     <div class="flex-container">
         <section id="about">
             <h2>About Me</h2>
@@ -84,13 +87,107 @@
                 Download link
             </a>
         </section>
+        
     </div>
-
+    <div>
+        <section id="projects">
+            <div class = "project">
+                <h2>My Projects</h2>
+                <p>Here's some of the work I've done over the past year using various different tools and programming languages</p>
+            </div>
+            
+                <div class = "project">
+                    <h2>This Webpage</h2>
+                    <p>I wanted to have an adjustable and interactive place to share my projects and skills</p>
+                    <p>Created using a combination of HTML, CSS, and JavaScript</p>
+                    <p><a href="https://github.com/AlexOzoline/Website" target="_blank">See the code for this site and Pacman here</a></p>
+                </div>
+                <div class="project">
+                    <h2>Pacman</h2>
+                    <p>Pacman-like game I created using Javascript and HTML.</p>
+                    <p>This project honed my skills in Javascript and understanding of API documentation</p>
+                    <p>The greatest challenges were to implement the AI of the ghosts, and a smooth movement system</p>
+                    <p><a href="./html/pacman">You can try the game in your browser here</a></p>
+                    <img src="./Assets/Images/pacmandemo.png" alt="Screenshot from game" class="blockade">
+                </div>
+        
+                <div class="project">
+                    <h2>Blockade Runners</h2>
+                    <p>Side scrolling space game I worked on with a team of developers and artists.</p>
+                    <p>Written in C# and created using Unity engine.</p>
+                    <p><a href="https://github.com/AlexOzoline/BlockadeRunners" target="_blank">GitHub link</a></p>
+                    <img src="./Assets/Images/BlockadeRunners2.png" alt="Screenshot from game" class="blockade">
+                    <img src="./Assets/Images/BlockadeRunners1.png" alt="Screenshot from game" class="blockade">
+                </div>
+                <div class = "project">
+                    <h2>Word to PDF</h2>
+                    <p>Simple tool I created to save time on file conversion.</p>
+                    <p>Written in Python using a library designed to help convert files between file types.</p>
+                    <p>Converts files instantly using terminal window, doesn't require internet connection.</p>
+                    <p><a href="https://github.com/AlexOzoline/convert_to_pdf" target="_blank">GitHub link</a></p>
+                    <img src="./Assets/Images/convertpdf.PNG" alt="Example ss" class="wordpdf">
+                </div>
+                <div class = "project">
+                    <h2>Website for Local Business</h2>
+                        <p>Freelance website creation work for a gardening business</p>
+                        <p>Learnt how to actually deploy things to public domains and navigate DNS</p>
+                        <p>Still working regularly to update site functionalities and design</p>
+                        <p><a href="https://github.com/AlexOzoline/Girlsinthegarden" target="_blank">GitHub link</a></p>
+                        <img src="./Assets/Images/gitg.PNG" alt="website pic" class="blockade">
+                </div>
+                <div class = "project">
+                    <h2>Board game AI</h2>
+                    <p>Strong AI agent capable of playing a custom board game.</p>
+                    <p>Uses the minimax algorithm to make moves, with Alpha-Beta pruning for efficiency</p>
+                    <p>Programmed using Python</p>
+                    <p><a href="https://github.com/AlexOzoline/CacheX" target="_blank">GitHub link</a></p>
+                    <img src="./Assets/Images/CacheX.png" alt="Example ss" class="blockade">
+                </div>
+                <div class = "project">
+                    <h3>Contact me if you want to ask any questions or learn more. &#128578;</h3>
+        </section>
+    </div>
+    <section id = "samples">
+        <div class = "sample">
+        <h2>Code Samples</h2>
+        <p>This code comes from my Pacman game in JavaScript.</p>
+        <p>This fucntion helps to prevent pacman from turning into walls when a directional key is pressed too early.</p>
+        <p>It calculates where he is trying to move, and passes it to a helper function which checks if that position is occupied by a wall.</p>
+        <img src="./Assets/Images/snippet.png" alt="example code" class="snippet">
+       </div>
+       <div class = sample>
+        <p>Code from my board game AI in python.</p>
+        <p>This here is half of the implementation of the minimax algorithm (The other half is the same but for the other player's turn).</p>
+        <img src="./Assets/Images/snippet2.PNG" alt="example code" class="snippet">
+       </div>
+    </section>
     <footer>
         <p>&copy; 2023 Alexander Ozoline</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Offset scroll position when clicking on nav links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        const navHeight = document.querySelector('nav').offsetHeight; // Get height of nav bar
+                        const offsetPosition = targetElement.offsetTop - navHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth' // Smooth scrolling animation
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
