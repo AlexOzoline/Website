@@ -1,96 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Alexander Ozoline's Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="images/favicon-32x32.png" type="image/png" sizes="32x32">
+		<link rel="icon" href="images/favicon-16x16.png" type="image/png" sizes="16x16">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+		<link rel="manifest" href="images/site.webmanifest">
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexander Ozoline - Personal Website</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" type="image/x-icon" href="./Assets/Images/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="./Assets/Images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./Assets/Images/favicon-16x16.png">
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href.replace('.html', ''));
-        }
-    </script>
-</head>
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
 
-<body>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                document.body.style.opacity = 1;
-                document.body.style.transform = 'translateY(0)';
-            }, 100); 
-        });
-    </script>
-    <header>
-        <p>Hey, I'm</p>
-        <h1>Alexander Ozoline</h1>
-    </header>
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Alexander<br />
+						Ozoline</h1>
+						<p>Currently working in DevOps, I’m focused on bridging the gap between infrastructure and software development. <br>
+							 I'm excited to build efficient, exciting applications on my journey.</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">hi</a></li>
+						</ul>
+					</div>
 
-    <nav>
-        <ul>
-            <li><a href="./">About Me</a></li>
-            <li><a href="./html/projects">Projects</a></li>
-            <li><a href="./html/samples">Code Samples</a></li>
-        </ul>
-    </nav>
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">AO</a>
+					</header>
 
-    <div class="flex-container">
-        <section id="about">
-            <h2>About Me</h2>
-            <p>I'm a passionate and versatile programmer with a focus on software development, data analysis, and web design.</p>
-            <p> I thrive on turning complex problems into elegant and efficient solutions, and I'm constantly exploring new technologies to enhance my skill set.</p>
-            <h2>Professional Background</h2>
-            <p>I completed a Bachelor of Science at the University of Melbourne, Majoring in Computing and Software Systems.</p>
-            <p>University taught me the intricacies of back-end design, whether that be database management, or algorithmic use cases. </p>
-            <p>I am currently engaged in freelance web development for a small startup company.  </p>
-            <p> I believe in writing clean and maintainable code, and I'm always eager to learn and adapt to new technologies and methodologies. </p>
-            <h2>My Tech Stack</h2>
-            <p>Front-end: Javascript, HTML, CSS, React.js.</p>
-            <p>Back-end: Python (Django, Pandas, Numpy, pytest), Java, C#, SQL, MySQL, Haskell.</p>
-            <p>Project Management & Collaboration: Git, Github, Jira, Confluence, Microsoft teams, Zoom, Discord.
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="#intro" class = scrolly>Home</a></li>
+							<li><a href="#main" class = scrolly>About</a></li>
+							<li><a href="#projects" class = scrolly>Projects</a></li>
+							<li><a href="#footer" class = scrolly>Contact</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/alexander-ozoline-27b093260/" class="icon brands fa-linkedin-in"><span class="label" target="_blank">Linkedin</span></a></li>
+							<li><a href="mailto:alexoz1708@outlook.com" class="icon regular fa-envelope"><span class="label" target="_blank">E-Mail</span></a></li>
+							<li><a href="https://github.com/AlexOzoline" class="icon brands fa-github"><span class="label" target="_blank">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+							<article class="post featured">
+								<header class="major">
+									<h2><a href="#main" class="scrolly">About me</a></h2>
+									A coder with a focus on software development and infrastructure.<br>
+									I completed my Bachelor of Science at the University of Melbourne, Majoring in Computing and Software Systems.<br>
+									Currently working for the E-Commerce provider Intershop, as a DevOps Engineer as part of their global team.<br>
+									I'm responsible for the uptime and growth of Enterprise level partners and household names.<br>
+									Including Miele, Shark, and Farmers.
+								</header>
+							</article>
+							<h2>Tech Stack</h2>
+									<div class="row">
+										<div class="col-6 col-12-small">
+
+											<h3>back-end</h3>
+											<ul>
+												<li class="icon brands alt fa-python"> Python</li>
+												<li class="icon brands alt fa-java"> Java</li>
+												<li class="icon solid fa-copy"> C#</li>
+												<li class="icon solid fa-file"> yaml</li>
+											</ul>
+
+											<h3>Front-End</h3>
+											<ul>
+												<li class="icon solid fa-code"> HTML</li>
+												<li class="icon brands alt fa-css3"> CSS</li>
+												<li class="icon brands alt fa-js"> JavaScript: Vue, React</li>
+											</ul>
+
+										</div>
+										<div class="col-6 col-12-small">
+											<h3>DevOps</h3>
+											<ul class="alt">
+												<li class="icon solid fa-chart-bar"> NewRelic</li>
+												<li class="icon solid fa-dharmachakra"> Kubernetes - Analysis through Azure and Lens</li>
+												<li class="icon solid fa-filter"> CI/CD Pipelines</li>
+												<li class="icon brands alt fa-aws"> AWS & Azure</li>
+											</ul>
 
 
-        </section>
+											<h3>Tools</h3>
+												<li class="icon solid fa-code-branch"> Version Control: Gitlab, Bitbucket</li>
+												<li class="icon brands fa-slack"> Communication: Teams, Slack, Zoom</li>
+												<li class="icon solid fa-terminal"> IDE: VSCode, Eclipse</li>
+										</div>
+									</div>
+							
+							<section class="posts" id="projects">
+								<article>
+									<header>
+										<h2><a href="https://demo.dl.intershop.dev/" target="_blank">DataLoader</a></h2>
+									</header>
+									<a href="https://demo.dl.intershop.dev/" target="_blank" class="image fit"><img src="images/dlr2.png" alt="" /></a>
+									<p>A a home grown solution to allow customers instant access to update product details, price listings, and more, directly through back-end APIs. <br> All at the push of a button.</p>
+									<ul class="actions special">
+										<li><a href="https://demo.dl.intershop.dev/" class="button" target="_blank">See More</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<h2><a href="https://github.com/AlexOzoline/BlockadeRunners" target="_blank">Blockade Runners </a></h2>
+									</header>
+									<a href="https://github.com/AlexOzoline/BlockadeRunners" target="_blank" class="image fit"><img src="images/BlockadeRunners2.png" alt="" /></a>
+									<p>2.5D space game created by a small development team.
+									Includes procedural generation, difficulty adaptation based on player progress, and customization options.</p>
+									<ul class="actions special">
+										<li><a href="https://github.com/AlexOzoline/BlockadeRunners" target="_blank" class="button">GitHub</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<h2><a href="https://github.com/AlexOzoline/Tanks" target="_blank">Tank Brawls</a></h2>
+									</header>
+									<a href="https://github.com/AlexOzoline/Tanks" target="_blank" class="image fit"><img src="images/tank_brawls.png" alt="" /></a>
+									<p> A Unity-based game featuring intelligent tank enemies with advanced AI behavior. Tanks patrol, chase, and attack the player, utilizing raycasting for cover detection and calculating bounce shots for strategic firing. Includes dynamic sound effects, explosion visuals, and smooth player interaction.</p>
+									<ul class="actions special">
+										<li><a href="https://github.com/AlexOzoline/Tanks" target="_blank" class="button">GitHub</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<h2><a href="https://github.com/AlexOzoline/Website/blob/main/js/game.js" target="_blank">Pacman</a></h2>
+									</header>
+									<a href="#" class="image fit"><img src="images/cropped-pacmandemo.png" alt="" /></a>
+									<p>My implementation of Pacman, made using the Phaser 3 JavaScript framework. Everything including art, scripting, and enemy AI was made from scratch. </p>
+									<ul class="actions special">
+										<li><a href="https://github.com/AlexOzoline/Website/blob/main/js/game.js" target="_blank" class="button">GitHub</a></li>
+									</ul>
+								</article>
+							</section>
+						</div>
+					</div>
 
-        <section id="contact" class = "right-section">
-            <h2>Contact</h2>
-            <p>You can contact me through the following:</p>
-            <a href="mailto:alexoz1708@outlook.com">
-                <img src="Assets/Images/email.png" alt="Email Icon" width="25" height="25">
-                alexoz1708@outlook.com
-            </a>
-            <p>
-                <img src="Assets/Images/phone.png" alt="Phone Icon" width="25" height="25">
-                +61 0493208516
-            </p>
-            <p>Connect with me on LinkedIn:</p>
-            <a href="https://www.linkedin.com/in/alexander-ozoline-27b093260/" target="_blank">
-                <img src="Assets/Images/linkedin.png" alt="LinkedIn Logo" width="25" height="25">
-                LinkedIn Profile
-            </a>
+				<!-- Footer -->
+					<footer id="footer">
+						<section class="split contact center">
+							<section>
+								<h3>Phone</h3>
+								<p> (+61)0493208516</p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p>Alexoz1708@outlook.com</p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="https://www.linkedin.com/in/alexander-ozoline-27b093260/" class="icon brands fa-linkedin-in" target="_blank"><span class="label">Linkedin</span></a></li>
+									<li><a href="mailto:alexoz1708@outlook.com" class="icon regular fa-envelope"><span class="label" target="_blank">E-Mail</span></a></li>
+									<li><a href="https://github.com/AlexOzoline" class="icon brands fa-github"><span class="label" target="_blank">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
 
-            <p>Check out my GitHub repositories:</p>
-            <a href="https://github.com/AlexOzoline?tab=repositories" target="_blank">
-                <img src="Assets/Images/GitHub.png" alt="GitHub Logo" width="25" height="25">
-                GitHub Profile
-            </a>
-            <p>Download my Resume: </p>
-            <a href="./Assets/Downloads/Alexander-Ozoline-Resume.pdf" download="Alexander-Ozoline-Resume.pdf" target="_blank">
-                <img src="Assets/Images/resume.png" alt="resume" width="25" height="25">
-                Download link
-            </a>
-        </section>
-    </div>
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Alexander Ozoline</li><li>2025</li></ul>
+					</div>
 
-    <footer>
-        <p>&copy; 2023 Alexander Ozoline</p>
-    </footer>
+			</div>
 
-    <script src="script.js"></script>
-</body>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
+	</body>
 </html>
